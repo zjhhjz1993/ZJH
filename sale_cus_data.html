@@ -1,0 +1,1463 @@
+{extend name="layout" /}
+
+{block name="content"}
+<script type="text/javascript" src="__STATIC__/js/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/js/ueditor.all.min.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/authentication/js/ueditor.all.js"></script>-->
+<link rel="stylesheet" href="__STATIC__/css/layui.css" media="all">
+<link rel="stylesheet" href="__STATIC__/text/styles/simditor.css" />
+<!-- <link rel="stylesheet" href="__STATIC__/js/themes/iframe.css" /> -->
+<link rel="stylesheet" href="__STATIC__/fbgw/css/alpha.css" />
+<link rel="stylesheet" href="__STATIC__/personalInfor/css/personalInfor.css"/>
+<style>
+
+    /* h5{
+        margin-bottom: 5px;
+    }
+    p{
+        margin-bottom: 5px;
+    } */
+
+    .zwxi-h3-title{
+        font-weight: bold;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .RadioStyle input {
+        display: none;
+    }
+
+    .RadioStyle label {
+        border: 1px solid #e6e6e6;
+        color: #999;
+        padding: 2px 10px 2px 5px;
+        line-height: 28px;
+        min-width: 120px;
+        text-align: center;
+        float: left;
+        margin: 2px;
+        border-radius: 4px;
+    }
+
+    .RadioStyle input:checked + label {
+        background: url(__MEMBER_IMG__/xuanzhong11.svg) no-repeat right bottom;
+        border: 1px solid #009688;
+        background-size: 21px 21px;
+        color: #009688;
+    }
+
+    /* 三级联动开始 */
+    ._citys {
+        width: 450px;
+        display: inline-block;
+        border: 2px solid #eee;
+        padding: 5px;
+        position: relative;
+        background-color: #fff;
+    }
+
+    ._citys span {
+        color: #3470ed;
+        height: 15px;
+        width: 15px;
+        line-height: 15px;
+        text-align: center;
+        border-radius: 3px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border: 1px solid #3470ed;
+        cursor: pointer;
+    }
+
+    ._citys0 {
+        width: 100%;
+        height: 34px;
+        display: inline-block;
+        border-bottom: 2px solid #3470ed;
+        padding: 0;
+        margin: 0;
+    }
+
+    ._citys0 li {
+        display: inline-block;
+        line-height: 34px;
+        font-size: 15px;
+        color: #888;
+        width: 80px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .citySel {
+        background-color: #3470ed;
+        color: #fff !important;
+    }
+
+    ._citys1 {
+        width: 100%;
+        display: inline-block;
+        padding: 10px 0;
+    }
+
+    ._citys1 a {
+        width: 83px;
+        height: 35px;
+        display: inline-block;
+        background-color: #f5f5f5;
+        color: #666;
+        margin-left: 6px;
+        margin-top: 3px;
+        line-height: 35px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 13px;
+        overflow: hidden;
+    }
+
+    ._citys1 a:hover {
+        color: #fff;
+        background-color: #3470ed;
+    }
+
+    .AreaS {
+        background-color: #56b4f8 !important;
+        color: #fff !important;
+    }
+    /* 三级联动结束 */
+
+
+    /* 输入框地图开始 */
+    .bMap {
+        position: relative;
+    }
+
+    .bMap .map-warp {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 400px;
+        top: 34px;
+        display: none;
+    }
+
+    .bMap input {
+        width: 100%;
+        height: 38px;
+        line-height: 1.3;
+        line-height: 38px\9;
+        border: 1px solid #e6e6e6;
+        background-color: #fff;
+        border-radius: 2px;
+        padding: 10px;
+    }
+
+    .tangram-suggestion-main {
+        z-index: 9999
+    }
+    /* 输入框地图结束 */
+
+
+
+    .labeltext{
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+
+
+    .my-select{
+        margin: 13px 0;
+        padding: 0 10px;
+        color: rgba(0,0,0,.65);
+        width: 135px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 12px;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
+    }
+
+
+    .my-select1{
+        margin: 13px 0;
+        padding: 0 10px;
+        color: rgba(0,0,0,.65);
+        width: 135px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 12px;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 98% center transparent;
+    }
+
+
+    /* 标签开始 */
+    .plus-tag a{
+        color: #ff9800;
+        width: auto;
+        height: auto;
+        display: inline-block;
+        line-height: 28px;
+        padding-left: 16px;
+        padding-right: 10px;
+        margin-right: 12px;
+        margin-top: 4px;
+        margin-bottom: 6px;
+        border-radius: 30px;
+        border: 1px solid #ff9800;
+        background-color: white;
+    }
+
+    .plus-tag a em{
+        background:url(__MEMBER_IMG__/tagbg.png) no-repeat;
+    }
+
+    .plus-tag-add{
+        /* clear: both; */
+        position: relative;
+    }
+
+    .plus-tag a span{
+        float:left;
+    }
+
+    .plus-tag a em{
+        display:block;
+        float:left;
+        margin:6px 0 0 8px;
+        width:13px;
+        height:13px;
+        overflow:hidden;
+        background-position:-165px -99px;
+        cursor:pointer;
+    }
+
+    .plus-tag a:hover em{
+        background-position:-168px -63px;
+    }
+
+    .default-tag .default-tag-ul{
+        height: 70px;
+        padding: 0;
+    }
+
+    .default-tag .default-tag-ul li{
+        float: left;
+        padding: 6px 4px;
+        margin-right: 10px;
+        margin-bottom: 8px;
+    }
+
+    .default-tag .default-tag-ul li a{
+        color: #636363;
+    }
+
+    .default-tag .default-tag-ul li a i img{
+        width: 16px;
+        height: auto;
+        margin: 0 6px;
+    }
+
+    .clearfix>a{
+        padding: 6px 10px;
+        display: inline-block;
+    }
+
+    /* 标签结束 */
+
+
+    /*隐藏掉我们模型的checkbox*/
+    .my_protocol .input_agreement_protocol {
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        display: none;
+    }
+    /*未选中时*/
+    .my_protocol .input_agreement_protocol+span {
+        width: 16px;
+        height: 16px;
+        background-color: red;
+        display: inline-block;
+        background: url(__MEMBER_IMG__/icon_checkbox.png) no-repeat;
+        background-position-x: 0px;
+        background-position-y: -25px;
+        position: relative;
+        top: 3px;
+    }
+    /*选中checkbox时,修改背景图片的位置*/
+    .my_protocol .input_agreement_protocol:checked+span {
+        background-position: 0 0px;
+    }
+
+
+    .RadioStyle input {
+        display: none;
+    }
+
+    .RadioStyle label {
+        border: 1px solid #dbdfdf;
+        color: #929292;
+        padding: 0 6px;
+        min-width: 84px;
+        text-align: center;
+        float: left;
+        margin: 4px;
+        border-radius: 2px;
+    }
+
+    .RadioStyle input:checked+label {
+        background: url(__MEMBER_IMG__/xuanzhong11.svg) no-repeat right bottom;
+        border: 1px solid #3470ed;
+        background-size: 21px 21px;
+        color: #3470ed;
+    }
+
+    .RadioStyle input:disabled+label {
+        opacity: 0.7;
+    }
+
+	/* 弹窗2 */
+    .masking1 {
+        width:100%;
+        height:100%;
+        position:fixed;
+        background:rgba(74, 74, 74, 0.8);
+        /*display:none;*/
+        top:0;
+        left:0;
+        z-index: 10000;
+    }
+
+    .layer1 {
+        width: 620px;
+        height: 234px;
+        padding: 0 12px;
+        margin: -200px 0 0 -290px;
+        position: relative;
+        top: 54%;
+        left: 50%;
+        border-radius: 4px;
+        background: #fff;
+    }
+	
+	.masking1 .layer1 .header-tc {
+		/* border-bottom: 1px solid #eaeaea; */
+		margin-bottom: 12px;
+	}
+	
+	.masking1 .layer1 .cont-tc {
+		margin: 32px 0;
+	}
+
+    .close1 {
+        position:absolute;
+        right: 10px;
+        top: 10px;
+        opacity: inherit;
+    }
+
+    .modal1Title1 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        width: 100%;
+        height: auto;
+        padding: 10px 0 12px 0;
+        margin: 0 0 8px;
+        position: inherit;
+        border-bottom: 1px solid #efefef;
+    }
+	
+	/* 弹窗2 */
+
+    .layui-elem-quote {
+        margin-top: 10px;
+		margin-bottom: 18px;
+		margin-left: 16px;
+		padding: 0 15px;
+		line-height: 22px;
+		border-left: 5px solid #3470ed;
+		border-radius: 0 2px 2px 0;
+		background-color: #ffffff;
+    }
+
+    .icon{
+        top: 20px !important;
+    }
+
+    #drag_h,#FuntypeAlpha li.over,#sub_funtype ul a:hover{
+        background-color: #3470ed;
+    }
+
+    #drag{
+        border: 1px solid #3470ed;
+    }
+
+    #sub_funtype{
+        border: 2px solid #3470ed;
+    }
+	
+	.content{
+	    padding: 15px 13px 1px !important;
+	}
+
+	
+	/* 上传图片开始 */
+	.uploadpictures{
+		width: 60%;
+	    padding: 20px;
+	    border-radius: 10px;
+		border: 1px solid #EEEEEE;
+	}
+	
+	#upBox {
+	    text-align: center;
+	    width: 100%;
+	    position: relative;
+	}
+	
+	#inputBox {
+	    color: cornflowerblue;
+	    width: 20%;
+	    height: 40px;
+	    color: cornflowerblue;
+	    position: relative;
+	    text-align: center;
+	    line-height: 40px;
+	    overflow: hidden;
+	    font-size: 16px;
+	    border-radius: 4px;
+	    border: 1px solid cornflowerblue;
+	    float: left;
+	    margin-top: 30px;
+	    margin-right: 20px;
+	}
+	
+	#inputBox input {
+	    width: 100%;
+	    height: 40px;
+	    opacity: 0;
+	    cursor: pointer;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	
+	}
+	
+	#imgBox {
+	    text-align: left;
+	}
+	
+	.imgContainer {
+	    /* display: inline-block;
+	    width: 200px;
+	    height: 200px;
+	    margin-left: 1%;
+	    border: 1px solid #666666;
+	    position: relative;
+	    margin-top: 30px;
+	    box-sizing: border-box; */
+		
+		display: inline-block;
+		width: 200px;
+		height: 200px;
+		border: 1px solid #eeeeee;
+		position: relative;
+		overflow: hidden;
+		margin: 30px 20px 0;
+		box-sizing: border-box;
+	}
+	
+	.imgContainer img {
+	    width: 200px;
+	    height: 200px;
+	    cursor: pointer;
+	}
+	
+	.imgContainer p {
+	    position: absolute;
+	    bottom: -32px;
+	    left: 0;
+	    width: 100%;
+	    height: 30px;
+	    background: black;
+	    text-align: center;
+	    line-height: 30px;
+	    color: white;
+	    font-size: 16px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    display: none;
+	}
+	
+	.imgContainer:hover p {
+	    display: block;
+	}
+	
+	#btn {
+	    font-size: 16px;
+	    display: inline-block;
+	    text-align: center;
+	    line-height: 40px;
+	    outline: none;
+	    width: 20%;
+	    height: 40px;
+	    background: cornflowerblue;
+	    border: 1px solid cornflowerblue;
+	    color: white;
+	    cursor: pointer;
+	    margin-top: 30px;
+	    border-radius: 4px;
+	}
+	
+	.uploadpictures_ts{
+	    color: #999999;
+	    font-size: 14px;
+	    margin-bottom: 0 !important;
+	}
+	/* 上传图片结束 */
+	
+	/* 弹窗开始 */
+	.masking {
+		display: none;
+		width:100%;
+		height:100%;
+		background-color: rgba(74, 74, 74, 0.8);
+		position: fixed;
+		left: 0;
+		right: 0;
+		z-index: 10000;
+	}
+	.layer {
+		width: 28%;
+		height: 600px;
+		padding: 20px 0;
+		margin: 0 auto;
+		border-radius: 4px;
+		border: 1px solid #dcdcdc !important;
+		position:relative;
+		top:10%;
+		left:0;
+		z-index: 10001;
+		overflow-y: scroll;
+		background: #fff;
+	}
+	.cpywuserfm_img{
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		border: 1px solid #EEEEEE;
+	}
+	.close {
+		font-size: 16px;
+		font-weight: bold;
+		color: #999999;
+		/* position:absolute;
+		right:15px;
+		top:15px;
+		z-index: 10000; */
+		opacity: 1;
+		float: none;
+		text-align: right;
+		display: block;
+		margin-bottom: 10px;
+	}
+	/* 弹窗结束 */
+	
+	/* 轮播样式开始 */
+	.butisliderbox{
+		width:650px;
+		height:260px;
+	}
+	
+	.slider-extra{
+		width:650px;
+		height:260px;
+	}
+	
+	.slider-panel .sliderpanelimg {
+		width:650px;
+		height:260px;
+	}
+	.butisliderbox {
+		text-align:center;
+		margin:0 auto;
+		position:relative;
+	}
+	.slider-panel,.slider-nav,.slider-pre,.slider-next {
+		position:absolute;
+		z-index:8;
+	}
+	.slider-panel {
+		position:absolute;
+	}
+	.slider-panel img {
+		border:none;
+	}
+	.slider-extra {
+		position:relative;
+	}
+	.slider-nav {
+		margin-left:-41px;
+		position:absolute;
+		left:50%;
+		bottom:4px;
+	}
+	.slider-nav li {
+		background:#9a9a9a;
+		border-radius:50%;
+		color:#fff;
+		cursor:pointer;
+		margin:0 2px;
+		overflow:hidden;
+		text-align:center;
+		display:inline-block;
+		height:18px;
+		line-height:18px;
+		width:18px;
+	}
+	.slider-nav .slider-item-selected {
+		background:#3470ed;
+	}
+	.slider-page a {
+		background:rgba(0,0,0,0.2);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000);
+		color:#fff;
+		text-align:center;
+		display:block;
+		font-family:"simsun";
+		font-size:22px;
+		width:28px;
+		height:62px;
+		line-height:62px;
+		margin-top:-31px;
+		position:absolute;
+		top:50%;
+	}
+	.slider-page a:HOVER {
+		background:rgba(0,0,0,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+	}
+	.slider-next {
+		left:100%;
+		margin-left:-28px;
+	}
+	/* 轮播样式结束 */
+	
+	/* tab切换开始 */
+	.tab_menu_box{
+		width: 100%;
+		height: auto;
+		margin: 0 0 10px;
+		list-style: none;
+		border-bottom: 1px solid #EEEEEE;
+	}
+		  
+	.tab_menu_box .tab_menu_li{
+		display: inline-block;
+	}
+		  
+	.tab_menu_box .tab_menu_li .tab_qyb_a{
+		color: #FFFFFF;
+		text-align: center;
+		width: 160px;
+		display: inline-block;
+		border-bottom: 0;
+		padding: 10px 20px;
+		margin-bottom: -1px;
+		background-color: #3470ed;
+	}
+		  
+	.tab_menu_box .tab_menu_li .tab_hr_a{
+		color: #666;
+		text-align: center;
+		width: 160px;
+		display: inline-block;
+		padding: 10px 20px;
+	}
+	/* tab切换结束 */
+	
+	/* ****************** */
+	.liulan_title{
+		text-align: center;
+		font-weight: 500;
+		font-size: 1.8em;
+		font-family: Microsoft YaHei;
+		line-height: 1.5;
+	}
+	
+	.pt_info{
+		display: block;
+		color: #888;
+		text-align: center;
+		padding-top: 5px;
+		margin: 0 !important;
+	}
+	
+	.pubtime_baidu{
+		padding: 0 5px;
+	}
+	
+	.pti_comm{
+		color: #ff0000;
+		text-decoration: underline;
+		padding: 0 5px;
+	}
+	
+	.post_content{
+		text-align: center !important;
+		text-align: justify;
+		text-justify: inter-ideograph;
+		word-wrap: break-word;
+		padding-top: 20px;
+		margin-bottom: 10px !important;
+	}
+	
+	img{
+		width: 100%;
+		height: auto;
+	}
+	
+	.masking .layer p>img{
+		width: 100%;
+		height: auto;
+		margin: 10px 0;
+	}
+
+    .layui-form select{
+        display: inline-block;
+    }
+
+    .test_select{
+        margin-left: 0;
+        appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 180px center transparent;
+        color: #949494;
+        width: 200px;
+        height: 36px;
+        padding: 0 10px;
+        border: 1px solid #dbdfdf;
+        background-color: #fcfcfc;
+    }
+	/* ****************** */
+    .test_bg_box{
+        width: 100%;
+        height: 100%;
+        min-height: 680px;
+        /*padding: 20px;*/
+        margin: 0 auto 10px;
+        background: #FFFFFF;
+    }
+
+    .overview_box{
+        padding: 1px;
+        overflow: hidden;
+    }
+
+    .tabPanel_header{
+        /*height: 57px;line-height: 57px;font-size: 25px;border-bottom: 2px solid #f6f6f6;*/
+        height: 59px;
+        line-height: 59px;
+        font-size: 25px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tabPanel_header1{
+        min-height: 58px;
+        margin-bottom: -1px;
+        padding: 0 15px;
+        color: rgba(0,0,0,.85);
+        font-weight: 500;
+        font-size: 16px;
+        background: transparent;
+        border-bottom: 1px solid #e8e8e8;
+        border-radius: 2px 2px 0 0;
+        zoom: 1;
+    }
+
+    .tabPanel_title{
+        /*color: #666666;*/
+        text-align: left;
+    }
+
+    .tabPanel_cont1,.tabPanel_cont2,.tabPanel_cont3,.tabPanel_cont4,.tabPanel_cont5{
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    .tabPanel_cont1{
+        color: #0067ff;
+    }
+
+    .tabPanel_ul {
+        overflow: hidden;
+        justify-content:center;
+        align-items:center;
+        display:-webkit-flex;
+    }
+
+    .tabPanel_ul .tabPanel_li1,.tabPanel_ul .tabPanel_li2,.tabPanel_ul .tabPanel_li3 {
+        padding: 0;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 30px;
+    }
+
+    .tabPanel_li1 {
+        width: 26.67%;
+    }
+
+    .tabPanel_li2 {
+        width: 40%;
+    }
+
+    .tabPanel_li3 {
+        width: 33.33%;
+    }
+
+    .tabPanel_ul1 {
+        width: 33.33%;
+        float: left;
+        cursor:pointer;
+    }
+
+    .tabPanel_ul2 {
+        width: 20%;
+        float: left;
+        cursor:pointer;
+    }
+
+
+    .trapezoid-0{
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        margin-bottom: 6px;
+        cursor:pointer;
+    }
+
+    .trapezoid-1{
+        border-top: 40px solid #428eff;
+        margin-top: 60px;
+        /*width: 372px;*/
+        width: 98%;
+    }
+
+    .trapezoid-2{
+        border-top: 40px solid #428eff;
+        /*width: 316px;*/
+        width: 83.5%;
+    }
+
+    .trapezoid-3{
+        border-top: 40px solid #428eff;
+        /*width: 260px;*/
+        width: 68.5%;
+    }
+
+    .trapezoid-4{
+        border-top: 40px solid #428eff;
+        /*width: 204px;*/
+        width: 53.5%;
+    }
+
+    .trapezoid-5{
+        border-top: 40px solid #00d9ff;
+        margin-bottom: 5px;
+        /*width: 148px;*/
+        width: 39%;
+    }
+
+    .trapezoid-6{
+        border-top: 40px solid #d3d6e9;
+        margin-bottom: 5px;
+        /*width: 95px;*/
+        width: 25%;
+    }
+
+    .tranFont{
+        position: absolute;
+        color: #fff;
+        font-size: 10px;
+        z-index: 1;
+        width: 80px;
+        cursor:pointer;
+    }
+
+    .dl_ratio{
+        font-size: 14px;
+        width: 10%;
+        margin: 0 45%;
+        margin-top: 69px;
+        cursor:pointer;
+    }
+
+    .cl_ratio{
+        font-size: 14px;
+        width: 10%;
+        margin: 0 45%;
+        margin-top: 114px;
+        cursor:pointer;
+    }
+
+    .bl_ratio{
+        font-size: 14px;
+        width: 10%;
+        margin: 0 45%;
+        margin-top: 159px;
+        cursor:pointer;
+    }
+
+    .al_ratio{
+        font-size: 14px;
+        width: 10%;
+        margin: 0 45%;
+        margin-top: 204px;
+        cursor:pointer;
+    }
+
+    .ka_ratio{
+        font-size: 14px;
+        width: 10%;
+        margin: 0 45%;
+        margin-top: 249px;
+        cursor:pointer;
+    }
+
+    .link-top {
+        width: 24px;
+        height: 1px;
+        border-top: 1px solid #999;
+    }
+
+    .follow-list {
+        background-color: #f1f5ff;
+        border-radius: 8px;
+        overflow: hidden;
+        line-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+
+
+
+
+    @media screen and (min-width: 1500px) {
+        .test_bg_box{
+            min-height: 900px;
+        }
+    }
+
+
+</style>
+
+<div class="test_bg_box">
+
+
+    <div style="background-color: #EEEEEE;">
+
+        <div class="overview_box" style="margin-bottom: 10px;">
+            <div class="layui-card">
+                <div class="layui-card-header tabPanel_header" style="">销售客户数据汇总</div>
+                <div class="layui-card-body">
+                    <ul class="tabPanel_ul">
+                        <li class="tabPanel_li1">
+                            <div class="tabPanel_title">销售客户数据</div>
+                            <div style="padding-right: 20px;overflow: hidden;">
+                                <div style="">
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'selectTime'=>2])}';">
+                                        <div class="tabPanel_cont1">{$com_wnum}</div>
+                                        <div>本周新增</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'selectTime'=>3])}';">
+                                        <div class="tabPanel_cont1">{$com_mnum}</div>
+                                        <div>本月新增</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid])}';">
+                                        <div class="tabPanel_cont1">{$com_znum}</div>
+                                        <div>总跟进企业</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'selectTime'=>4,'cooperation_type'=>4])}';">
+                                        <div class="tabPanel_cont1">{$gqcus_wnum}</div>
+                                        <div>本周到期客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'selectTime'=>5,'cooperation_type'=>4])}';">
+                                        <div class="tabPanel_cont1">{$gqcus_mnum}</div>
+                                        <div>本月到期客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>4])}';">
+                                        <div class="tabPanel_cont1">{$gqcus_znum}</div>
+                                        <div>合作已过期客户</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tabPanel_li2">
+                            <div class="tabPanel_title" style="padding-left: 20px;">客户等级</div>
+                            <div style="padding: 0 20px;overflow: hidden;border-left: 2px solid #eee;">
+                                <div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>5])}';">
+                                        <div class="tabPanel_cont1">{$wmeb_num}</div>
+                                        <div>未成交客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>0])}';">
+                                        <div class="tabPanel_cont1">{$fmeb_num}</div>
+                                        <div>非会员</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>1])}';">
+                                        <div class="tabPanel_cont1">{$ykmeb_num}</div>
+                                        <div>银卡会员</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>2])}';">
+                                        <div class="tabPanel_cont1">{$jkmeb_num}</div>
+                                        <div>金卡会员</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'cooperation_type'=>3])}';">
+                                        <div class="tabPanel_cont1">{$zzmeb_num}</div>
+                                        <div>铂金会员</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6])}';">
+                                        <div class="tabPanel_cont1">{$dcus_num}</div>
+                                        <div>D类客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2])}';">
+                                        <div class="tabPanel_cont1">{$ccus_num}</div>
+                                        <div>C类客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3])}';">
+                                        <div class="tabPanel_cont1">{$bcus_num}</div>
+                                        <div>B类客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4])}';">
+                                        <div class="tabPanel_cont1">{$acus_num}</div>
+                                        <div>A类客户</div>
+                                    </div>
+                                    <div class="tabPanel_ul2" onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5])}';">
+                                        <div class="tabPanel_cont1">{$kacus_num}</div>
+                                        <div>KA类客户</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tabPanel_li3">
+                            <div class="tabPanel_title" style="padding-left: 20px;">业绩数据</div>
+                            <div style="padding-left: 20px;overflow: hidden;border-left: 2px solid #eee;">
+                                <div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleMemList',['uid'=>$uid,'selectTime'=>2])}';">
+                                        <div class="tabPanel_cont1">{$hy_wmoney}</div>
+                                        <div>本周成交会员金额</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleMemList',['uid'=>$uid,'selectTime'=>3])}';">
+                                        <div class="tabPanel_cont1">{$hy_mmoney}</div>
+                                        <div>本月成交会员金额</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleMemList',['uid'=>$uid])}';">
+                                        <div class="tabPanel_cont1">{$hy_zmoney}</div>
+                                        <div>总成交会员金额</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleSerList',['uid'=>$uid,'selectTime'=>2,'fee'=>1])}';">
+                                        <div class="tabPanel_cont1">{$qyser_wnum}</div>
+                                        <div>本周成交企业服务金额</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleSerList',['uid'=>$uid,'selectTime'=>3,'fee'=>1])}';">
+                                        <div class="tabPanel_cont1">{$qyser_mnum}</div>
+                                        <div>本月成交企业服务金额</div>
+                                    </div>
+                                    <div class="tabPanel_ul1" onclick="location.href='{:url('member/customer/saleSerList',['uid'=>$uid])}';">
+                                        <div class="tabPanel_cont1">{$qyser_znum}</div>
+                                        <div>总成交企业服务金额</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="overview_box">
+            <div class="layui-card" style="width: 33%;float: left;">
+                <div class="layui-card-header tabPanel_header1" style="line-height: 58px;">待办客资</div>
+                <div class="layui-card-body" style="height: 400px;">
+                    <div class="follow-list" style="margin-top: 60px;" onclick="location.href='{:url('member/customer/saleFolList',['uid'=>$uid,'selectTime'=>1])}';">
+                        <span style="float: left;font-size: 12px;color: #333;">一周未跟进客户</span>
+                        <span style="float: right;font-size: 14px;color: #4f7afd;">{$wfollowup}</span>
+                    </div>
+                    <div class="follow-list" onclick="location.href='{:url('member/customer/saleFolList',['uid'=>$uid,'selectTime'=>2])}';">
+                        <span style="float: left;font-size: 12px;color: #333;">二周未跟进客户</span>
+                        <span style="float: right;font-size: 14px;color: #4f7afd;">{$tfollowup}</span>
+                    </div>
+                    <div class="follow-list" onclick="location.href='{:url('member/customer/saleFolList',['uid'=>$uid,'selectTime'=>3])}';">
+                        <span style="float: left;font-size: 12px;color: #333;">一个月未跟进客户</span>
+                        <span style="float: right;font-size: 14px;color: #4f7afd;">{$mfollowup}</span>
+                    </div>
+                    <div class="follow-list" onclick="location.href='{:url('member/customer/saleFolList',['uid'=>$uid,'selectTime'=>4])}';">
+                        <span style="float: left;font-size: 12px;color: #333;">即将被遗忘的客户</span>
+                        <span style="float: right;font-size: 14px;color: #4f7afd;">{$jfollowup}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card" style="width: 33%;float: left;margin: 0 5px;">
+                <div class="layui-card-header tabPanel_header1" style="">
+                    <div style="float: left;line-height: 58px;">销售漏斗</div>
+                    <select onchange="Edit(this)" zdy="{$uid}" name="serveTime" id="serveTime" class="my-select1" style="float: right;">
+                        <option value="" selected>全部</option>
+                        <option value="1">本周</option>
+                        <option value="2">本月</option>
+                        <option value="3">本季</option>
+                        <option value="4">本年</option>
+                        <option value="5">昨天</option>
+                        <option value="6">上周</option>
+                        <option value="7">上月</option>
+                        <option value="8">上季</option>
+                        <option value="9">上年</option>
+                    </select>
+                </div>
+                <div class="layui-card-body" style="height: 400px;text-align: center;position: relative;">
+                    <div style="width: 70%;float: left;position: absolute;text-align: -webkit-center;">
+                        <div class="tranFont dl_ratio" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6])}')">{$dl_ratio}%</div>
+                        <div class="tranFont cl_ratio" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2])}')">{$cl_ratio}%</div>
+                        <div class="tranFont bl_ratio" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3])}')">{$bl_ratio}%</div>
+                        <div class="tranFont al_ratio" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4])}')">{$al_ratio}%</div>
+                        <div class="tranFont ka_ratio" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5])}')">{$ka_ratio}%</div>
+                        <div id="trapezoid-1" class="trapezoid-0 trapezoid-1" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6])}')"></div>
+                        <div id="trapezoid-2" class="trapezoid-0 trapezoid-2" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2])}')"></div>
+                        <div id="trapezoid-3" class="trapezoid-0 trapezoid-3" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3])}')"></div>
+                        <div id="trapezoid-4" class="trapezoid-0 trapezoid-4" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4])}')"></div>
+                        <div id="trapezoid-5" class="trapezoid-0 trapezoid-5" onclick="window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5])}')"></div>
+                        <div id="trapezoid-6" class="trapezoid-0 trapezoid-6"></div>
+                    </div>
+                    <div style="width: 30%;float: right;text-align: left;position: absolute;">
+                        <div class="tranFont link-top" style="margin-top: 81px;margin-left: 360px;"></div>
+                        <div class="tranFont" style="margin-top: 70px;margin-left: 396px;color: #000;">D类客户占比</div>
+                        <div class="tranFont link-top" style="margin-top: 125px;margin-left: 333px;"></div>
+                        <div class="tranFont" style="margin-top: 115px;margin-left: 369px;color: #000;">C类客户占比</div>
+                        <div class="tranFont link-top" style="margin-top: 170px;margin-left: 305px;"></div>
+                        <div class="tranFont" style="margin-top: 160px;margin-left: 341px;color: #000;">B类客户占比</div>
+                        <div class="tranFont link-top" style="margin-top: 215px;margin-left: 278px;"></div>
+                        <div class="tranFont" style="margin-top: 205px;margin-left: 314px;color: #000;">A类客户占比</div>
+                        <div class="tranFont link-top" style="margin-top: 264px;margin-left: 248px;"></div>
+                        <div class="tranFont" style="margin-top: 253px;margin-left: 284px;color: #000;">KA类客户占比</div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card" style="width: 33.3%;float: left;">
+                <div class="layui-card-header tabPanel_header1" style="line-height: 58px;">会员费占比</div>
+                <div class="layui-card-body" style="height: 400px;text-align: center;">
+                    <div style="position: absolute;width: 65%;margin-top: 145px;z-index: 1;">
+                        <div style="color: #00a2d4;font-size: 17px;width: 20%;margin: 0 40%;margin-bottom: 5px;">{$circle_progress*100}%</div>
+                        <div style="font-size: 16px;font-weight: bolder;width: 30%;margin: 0 35%;">会员费比例</div>
+                    </div>
+                    <div id="circle_step" style="width: 65%;margin-top: 60px;float: left;position: absolute;"></div>
+                    <div id="circle_text" style="width: 35%;margin-top: 60px;float: right;text-align: left;">
+                        <div style="font-size: 16px;">销售客户总金额</div>
+                        <div style="font-size: 20px;color: #00a2d4;margin: 20px 0 30px 0;">￥ {$sale_znum}</div>
+                        <div style="font-size: 16px;">总成交会员费金额</div>
+                        <div style="font-size: 20px;color: #00a2d4;margin: 20px 0 30px 0;cursor:pointer;" onclick="location.href='{:url('member/customer/saleMemList',['uid'=>$uid])}';">￥ {$hy_zmoney}</div>
+                        <div style="font-size: 16px;">总成交企业服务费金额</div>
+                        <div style="font-size: 20px;color: #00a2d4;margin-top: 20px;cursor:pointer;" onclick="location.href='{:url('member/customer/saleSerList',['uid'=>$uid])}';">￥ {$qyser_znum}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {if $role != 11}
+        <div class="overview_box">
+            <div class="layui-card">
+                <div class="layui-card-header tabPanel_header1" style="line-height: 58px;">销售详情</div>
+                <div class="layui-card-body">
+                    <table class="layui-table text-center">
+                        <thead>
+                        <tr>
+                            <!--<th style="text-align: center;">销售ID</th>-->
+                            <!--<th style="text-align: center;">负责人</th>-->
+                            <th style="text-align: center;">销售员</th>
+                            <th style="text-align: center;">跟进客户总数</th>
+                            <th style="text-align: center;">签约客户</th>
+                            <th style="text-align: center;">过期客户</th>
+                            <th style="text-align: center;">签约比例</th>
+                            <th style="text-align: center;">KA客户</th>
+                            <th style="text-align: center;">A类客户</th>
+                            <th style="text-align: center;">B类客户</th>
+                            <th style="text-align: center;">C类客户</th>
+                            <th style="text-align: center;">D类客户</th>
+                            <th style="text-align: center;">成交会员金额</th>
+                            <th style="text-align: center;">成交企业服务金额</th>
+                            <th style="text-align: center;">会员费比例</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach $list as $v}
+                        <tr>
+                            <!--<td>{$v.id}</td>-->
+                            <!--<td>{$v.username}</td>-->
+                            <td onclick="location.href='{:url('member/customer/saleCusdata',['ced_id'=>$v.id])}';" style="cursor:pointer;">{$v.nickname}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id])}';" style="cursor:pointer;">{$v.cus_znum}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'cooperation_type'=>6])}';" style="cursor:pointer;">{$v.ser_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'cooperation_type'=>4])}';" style="cursor:pointer;">{$v.gqcus_znum}</td>
+                            <td>{$v.gq_progress}%</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'customer_labels'=>5])}';" style="cursor:pointer;">{$v.kacus_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'customer_labels'=>4])}';" style="cursor:pointer;">{$v.alcus_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'customer_labels'=>3])}';" style="cursor:pointer;">{$v.blcus_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'customer_labels'=>2])}';" style="cursor:pointer;">{$v.clcus_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleCusList',['uid'=>$v.id,'customer_labels'=>6])}';" style="cursor:pointer;">{$v.dlcus_num}</td>
+                            <td onclick="location.href='{:url('member/customer/saleMemList',['uid'=>$v.id])}';" style="cursor:pointer;">￥{$v.sub_zamount}</td>
+                            <td onclick="location.href='{:url('member/customer/saleSerList',['uid'=>$v.id])}';" style="cursor:pointer;">￥{$v.sub_zfee}</td>
+                            <td>{$v.fee_progress}%</td>
+                        </tr>
+                        {/foreach}
+                        <!-- 暂无数据开始 -->
+                        {if $listtoarray.total == 0}
+                        <tr>
+                            <td colspan="12" style="padding: 20px 0;">
+                                <img style="display: block;margin: 20px auto;" src="__STATIC__/images/wushuju.svg">
+                                <span style="display: block;color: #999999;">暂无数据</span>
+                            </td>
+                        </tr>
+                        {/if}
+                        <!-- 暂无数据结束 -->
+                        </tbody>
+                    </table>
+                    <div>
+                        {$page|raw}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+
+    </div>
+
+</div>
+{/block}
+
+{block name="script"}
+<script src="__MEMBER_JS__/jquery.jqprint-0.3.js"></script>
+<script src="__STATIC__/personalInfor/js/personalInfor.js"></script>
+
+<script src="__STATIC__/circle-progress/js/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/circle-progress/dist/circle-progress.js"></script>
+
+<script src="__ADMIN_JS__/dolphin.js"></script>
+<script src="__MEMBER_JS__/Popt.js"></script>
+
+<script src="__STATIC__/authentication/js/layui.js"></script>
+<script src="__STATIC__/authentication/js/uploadImg.js"></script>
+
+
+<script>
+    $(".trapezoid-0").mouseover(function(){
+        var id = $(this).attr('id');
+        var k = Number(id.substring(10));
+        var style = 'border-top: 40px solid #74acff;';
+        if (k == 5){
+            style = 'border-top: 40px solid #b8f4ff;';
+        }
+        if (k == 6){
+            style = 'border-top: 40px solid #e6eaff;';
+        }
+        $('#'+id).attr('style',style);
+    });
+    $('.trapezoid-0').mouseleave(function(){
+        var id = $(this).attr('id');
+        var k = Number(id.substring(10));
+        var style = 'border-top: 40px solid #428eff;';
+        if (k == 5){
+            style = 'border-top: 40px solid #00d9ff;';
+        }
+        if (k == 6){
+            style = 'border-top: 40px solid #d3d6e9;';
+        }
+        $('#'+id).attr('style',style);
+    });
+</script>
+
+<script>
+    var circle_progress = {$circle_progress};
+    $('#circle_step').circleProgress({
+        value: circle_progress, // 环形百分比，这是唯一一个必填参数。值从0.0到1.0，默认值为0
+        size: 200, // canvas的大小，单位像素，默认值100
+        startAngle:-1.57, // 初始角度，默认值为-Math.PI
+        reverse:false, // 是否反向绘制圆弧和动画，默认值为false
+        lineCap:'butt', // 圆弧的线头样式："butt"、"round"和"square"。默认值为"butt"
+        thickness:25,  // 进度条圆弧的宽度。默认它自动为size的1/14大小，你可以设置你需要的值。默认值为auto
+        fill: {
+            gradient: ["#46ccf2","#4696ef"]
+        }
+//        圆弧填充的配置。
+//        -{ color: "#ff1e41" }
+//        -{ color: 'rgba(255, 255, 255, .3)' }
+//        -{ gradient: ["red", "green", "blue"] }
+//        -{ gradient: [["red", .2], ["green", .3], ["blue", .8]] }
+//        -{ gradient: [ ... ], gradientAngle: Math.PI / 4 }
+//        -{ gradient: [ ... ], gradientDirection: [x0, y0, x1, y1] }
+//        -{ image: "http://i.imgur.com/pT0i89v.png" }
+//        -{ image: imageInstance }
+//        -{ color: "lime", image: "http://i.imgur.com/pT0i89v.png" }
+//        默认值为{ gradient: ["#3aeabb", "#fdd250"] }
+
+//        emptyFill: "rgba(0, 0, 0, .1)"， // 空圆弧的颜色。默认值为"rgba(0, 0, 0, .1)"
+//        animation: { duration: 1200, easing: "circleProgressEase" },  // 动画配置。可以设置为false来禁止动画。默认值：{ duration: 1200, easing: "circleProgressEase" }。"circleProgressEase"是一个ease-in-out-cubic easing动画效果
+//        animationStartValue: 0.0,  // 默认进度条动画会在0.0开始，结束与value处。调用该参数可以直接动画。如果需要制作反向动画就将animationStartValue的值设置为1.0。你可以指定0.0到1.0之间的任何数值。默认值为0.0
+    }).on('circle-animation-progress', function(event, progress,stepValue) {
+        //当图像正在绘制时的监听事件
+//        console.log(1);
+    });
+    $('#circle_step').click(function(){
+//        console.log('点击');
+    });
+    //当鼠标进入环形进度条时
+    $('#circle_step').mouseenter(function(){
+//        console.log('进入');
+        $('#circle_step').attr('style','width: 65%;margin-top: 50px;float: left;position: absolute;');
+        $('#circle_step').circleProgress({ size: 220, thickness:35 });
+    });
+    //当鼠标离开环形进度条时
+    $('#circle_step').mouseleave(function(){
+//        console.log('离开');
+        $('#circle_step').attr('style','width: 65%;margin-top: 60px;float: left;position: absolute;');
+        $('#circle_step').circleProgress({ size: 200, thickness:25 });
+    });
+</script>
+
+<script>
+    function Edit(that){
+        var uid = $(that).attr("zdy");
+        var serveTime = $(that).val();
+        $.ajax({
+            type:'post',
+            url:"{:url('member/customer/getSaleFunnel')}",
+            data:{
+                uid:uid,
+                serveTime:serveTime
+            },
+            dataType:'json',
+            success: function(data){
+                console.log(data);
+                $('.dl_ratio').html(data.dl_ratio+'%');
+                $('.cl_ratio').html(data.cl_ratio+'%');
+                $('.bl_ratio').html(data.bl_ratio+'%');
+                $('.al_ratio').html(data.al_ratio+'%');
+                $('.ka_ratio').html(data.ka_ratio+'%');
+                if (serveTime != ''){
+                    console.log(serveTime);
+                    if(serveTime == 1){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>1])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>1])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>1])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>1])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>1])}')";
+                    } else if(serveTime == 2){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>2])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>2])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>2])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>2])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>2])}')";
+                    } else if(serveTime == 3){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>3])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>3])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>3])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>3])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>3])}')";
+                    } else if(serveTime == 4){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>4])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>4])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>4])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>4])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>4])}')";
+                    } else if(serveTime == 5){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>5])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>5])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>5])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>5])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>5])}')";
+                    } else if(serveTime == 6){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>6])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>6])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>6])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>6])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>6])}')";
+                    } else if(serveTime == 7){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>7])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>7])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>7])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>7])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>7])}')";
+                    } else if(serveTime == 8){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>8])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>8])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>8])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>8])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>8])}')";
+                    } else if(serveTime == 9){
+                        var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2,'serveTime'=>9])}')";
+                        var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3,'serveTime'=>9])}')";
+                        var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4,'serveTime'=>9])}')";
+                        var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5,'serveTime'=>9])}')";
+                        var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6,'serveTime'=>9])}')";
+                    }
+                    $('.dl_ratio').attr('onclick',location5);
+                    $('.cl_ratio').attr('onclick',location1);
+                    $('.bl_ratio').attr('onclick',location2);
+                    $('.al_ratio').attr('onclick',location3);
+                    $('.ka_ratio').attr('onclick',location4);
+                    $('#trapezoid-1').attr('onclick',location5);
+                    $('#trapezoid-2').attr('onclick',location1);
+                    $('#trapezoid-3').attr('onclick',location2);
+                    $('#trapezoid-4').attr('onclick',location3);
+                    $('#trapezoid-5').attr('onclick',location4);
+                } else {
+                    var location1 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>2])}')";
+                    var location2 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>3])}')";
+                    var location3 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>4])}')";
+                    var location4 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>5])}')";
+                    var location5 = "window.open('{:url('member/customer/saleCusList',['uid'=>$uid,'customer_labels'=>6])}')";
+                    $('.dl_ratio').attr('onclick',location5);
+                    $('.cl_ratio').attr('onclick',location1);
+                    $('.bl_ratio').attr('onclick',location2);
+                    $('.al_ratio').attr('onclick',location3);
+                    $('.ka_ratio').attr('onclick',location4);
+                    $('#trapezoid-1').attr('onclick',location5);
+                    $('#trapezoid-2').attr('onclick',location1);
+                    $('#trapezoid-3').attr('onclick',location2);
+                    $('#trapezoid-4').attr('onclick',location3);
+                    $('#trapezoid-5').attr('onclick',location4);
+                }
+//					if(data.code == '0'){
+//						Dolphin.loading('hide');
+//						Dolphin.notify(data.msg, 'danger');
+//					}else {
+//						Dolphin.notify('修改成功~', 'success');
+//						setTimeout(function(){
+//							location.reload();
+//						},3000);
+//					}
+            }
+        })
+    }
+</script>
+{/block}

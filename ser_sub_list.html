@@ -1,0 +1,236 @@
+{extend name="layout" /}
+
+{block name="content"}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务客户数据</title>
+    <link rel="stylesheet" href="__STATIC__/personalInfor/css/layui.css">
+    <style>
+
+        .content{
+            padding: 10px 14px 1px !important;
+        }
+
+        .shopextension_box{
+            width: 100%;
+            height: 100%;
+            min-height: 680px;
+            padding: 10px;
+            margin: 0 auto 10px;
+            background: #FFFFFF;
+        }
+
+
+
+
+        /**tabs**/
+        .tabPanel ul {
+            height: 38px;
+            border-bottom: 1px solid #eee;
+            padding-left: 0;
+        }
+        .tabPanel ul li>a {
+            width: 120px;
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            float: left;
+            cursor:pointer;
+            list-style: none;
+        }
+        .tabPanel .hit {
+            color: #FFFFFF;
+            border-bottom: 1px solid #fff;
+            background: #3470ed;
+        }
+        .pane {
+            display: none;
+        }
+
+        .userdata_select{
+            color: #949494;
+            width: 80%;
+            height: 36px;
+            padding: 0 10px;
+            margin: 0 auto;
+            border: 1px solid #dbdfdf;
+        }
+
+        .keyWord {
+            width: 190px;
+            border-radius: 4px;
+            border: 1px solid #dbdfdf;
+        }
+
+        @media screen and (min-width: 1500px) {
+            .shopextension_box{
+                min-height: 900px;
+            }
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div class="shopextension_box">
+    <div class="tabPanel">
+        <div class="panes">
+
+            <div class="layui-form-item">
+                <a href="javascript:history.back(-1)" onclick="shua()" class="layui-btn layui-btn-primary liulan_text1" style="border: 1px solid #C9C9C9;color: #555;">返回</a>
+            </div>
+
+            <form class="layui-form" action="" method="get">
+                <div class="layui-form-item" style="margin: 15px 0;;">
+                    <!-- <label class="layui-form-label" style="width: 90px;margin: 0;">等级筛选</label> -->
+                    <div class="layui-input-inline">
+                        <input class="layui-input keyWord" type="text" name="company" value="{$keyword['company']}" autocomplete="off" placeholder="请输入企业名" />
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="padding: 0 !important;margin-right: 0;">
+                        <button class="layui-btn layui-btn-primary" style="color: #666;background: #fafbfc;border: 1px solid #e5e7eb;" lay-submit lay-filter="formDemo">搜索</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- 1 -->
+            <div class="pane" style="display:block;">
+                <table class="layui-table text-center">
+                    <thead>
+                    <tr>
+                        <!--<th style="text-align: center;">用户ID</th>-->
+                        <th style="text-align: center;">企业名称</th>
+                        <th style="text-align: center;">联系人</th>
+                        <th style="text-align: center;">联系电话</th>
+                        <th style="text-align: center;">合作等级</th>
+                        <th style="text-align: center;">合作时间</th>
+                        <th style="text-align: center;width: 8%;">推广人</th>
+                        <th style="text-align: center;">预收金额</th>
+                        <th style="text-align: center;">申报补贴金额</th>
+                        <th style="text-align: center;">服务费金额</th>
+                        <th style="text-align: center;">服务费占比</th>
+                        <th style="text-align: center;width: 8%;">提交时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $list as $v}
+                    <tr>
+                        <!--<td>{$v.uid}</td>-->
+                        <!--<td>{$v.cid}</td>-->
+                        <!--<td>{$v.sub_id}</td>-->
+                        <td onclick="location.href='{:url('member/index/customerinfo',['id'=>$v.cid,'status'=>2])}';" style="cursor:pointer;">{$v.company}</td>
+                        <td>{$v.name}</td>
+                        <td>{$v.mobile}</td>
+                        {if $v.cooperation_type == '0'}
+                        <td>非会员</td>
+                        {elseif $v.cooperation_type == '1'}
+                        <td>银卡会员</td>
+                        {elseif $v.cooperation_type == '2'}
+                        <td>金卡会员</td>
+                        {elseif $v.cooperation_type == '3'}
+                        <td>铂金会员</td>
+                        {elseif $v.cooperation_type == '6'}
+                        <td>免费银卡会员</td>
+                        {elseif $v.cooperation_type == '7'}
+                        <td>免费金卡会员</td>
+                        {elseif $v.cooperation_type == '8'}
+                        <td>免费铂金会员</td>
+                        {elseif $v.cooperation_type == '9'}
+                        <td>免费会员</td>
+                        {elseif $v.cooperation_type == '10'}
+                        <td>会员</td>
+                        {elseif $v.cooperation_type == '4'}
+                        <td>过期会员</td>
+                        {elseif $v.cooperation_type == '5'}
+                        <td>非合作企业</td>
+                        {/if}
+                        <td>{$v.cooperation_time?$v.cooperation_time:'无'}</td>
+                        <td>{$v.pname?$v.pname:'无'}</td>
+                        <td>{$v.advance?$v.advance:'0'}</td>
+                        <td>{$v.subsidies_amount?$v.subsidies_amount:'0'}</td>
+                        <td>{$v.service_fee?$v.service_fee:'0'}</td>
+                        <td>{$v.service_fei?$v.service_fei:'0'}%</td>
+                        {if $keyword['selectTime'] == '4'}
+                        <td>{:date('Y-m-d H:i:s',$v.grant_time)}</td>
+                        {else/}
+                        <td>{:date('Y-m-d H:i:s',$v.create_time)}</td>
+                        {/if}
+                    </tr>
+                    {/foreach}
+                    {if $listtoarray.total == 0}
+                    <tr>
+                        <td colspan="12" style="text-align: center;color: #999;font-size: 16px;padding: 50px 0;">
+                        暂无数据
+                        </td>
+                    </tr>
+                    {/if}
+                    </tbody>
+                </table>
+            </div>
+            <!-- 2 -->
+        </div>
+    </div>
+{$page|raw}
+</div>
+
+<script src="__STATIC__/shop/js/jquery-2.1.3.min.js"></script>
+
+<script>
+    function shua(){
+        window.location.go(-1);
+    }
+//    function Edite(that){
+//        var sig_id = $(that).val();
+//        var uid = $(that).attr('zdy');
+//        $.ajax({
+//            type:'post',
+//            url:"{:url('member/index/editSubid')}",
+//            data:{
+//                uid:uid,
+//                sig_id: sig_id
+//            },
+//            dataType:'json',
+//            success: function(data){
+//                if(data.code == '0'){
+//                    Dolphin.loading('hide');
+//                    Dolphin.notify(data.msg, 'danger');
+//                }else {
+//                    Dolphin.notify('渠道专员修改成功，页面刷新中~', 'success');
+//                    setTimeout(function(){
+//                        location.reload();
+//                    },500)
+//                }
+//            }
+//        })
+//    }
+</script>
+<script>
+//    function Edit(that){
+//        var id = $(that).attr("zdy");
+//        var ambassador = $(that).val();
+//        $.ajax({
+//            type:'post',
+//            url:"{:url('member/index/meauthedit')}",
+//            data:{
+//                id:id,
+//                ambassador:ambassador
+//            },
+//            dataType:'json',
+//            success: function(data){
+//                if(data.code == '0'){
+//                    Dolphin.loading('hide');
+//                    Dolphin.notify(data.msg, 'danger');
+//                }else {
+//                    Dolphin.notify('修改成功~', 'success');
+//                    setTimeout(function(){
+//                        location.reload();
+//                    },3000);
+//                }
+//            }
+//        })
+//    }
+</script>
+</body>
+</html>
+{/block}
